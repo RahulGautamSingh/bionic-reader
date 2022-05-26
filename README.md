@@ -3,7 +3,8 @@ Chrome Extension
 
 Converts web-page text to bionic form. 
 
-[WIP] Will improve logic and add UI across the summer-break.
+[WIP]
+Breaks some functionality like input, links and (more to find) on sites. So I suggest to use it where the sole purpose it consuming written content.
 
 Even at this state it is usable.
 
