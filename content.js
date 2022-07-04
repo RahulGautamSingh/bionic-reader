@@ -1,22 +1,29 @@
+function addTag() {
+    const tagName = document.getElementById("tagInput").value;
+    console.log(tagName)
+    document.getElementById("tagInput").value = ""
+}
+
+// making half of the letters in a word bold
+function highlightText(sentenceText) {
+    return sentenceText
+        .replace(/\p{L}+/gu, (word) => {
+            const { length } = word;
+            let midPoint = 1;
+            if (length > 3) midPoint = Math.round(length / 2);
+            const firstHalf = word.slice(0, midPoint);
+            const secondHalf = word.slice(midPoint);
+            const htmlWord = '<strong>' + firstHalf + '</strong>' + secondHalf;
+            return htmlWord;
+        });
+}
+
 function convertIt() {
     const tags = ['p', 'span', 'li']
     const ignoreChars = ['&'];
     function convertToBionic(stri) {
         let upperStr = stri.split(".");
-        upperStr = upperStr.map(str => {
-            str = str.split(" ").map(word => {
-                const len = word.length;
-                if (!ignoreChars.includes(word)) {
-                    if (len & 1) {
-                        word = "<strong>" + word.slice(0, len / 2 + 1) + "</strong>" + word.slice(len / 2 + 1);
-                    }
-                    else word = "<strong>" + word.slice(0, len / 2) + "</strong>" + word.slice(len / 2);
-                }
-                return word;
-            });
-
-            return str.join(" ");
-        });
+        upperStr = upperStr.map(str => highlightText(str));
         return upperStr.join(".")
     }
     for (let tag of tags) {
@@ -26,10 +33,7 @@ function convertIt() {
         };
     }
 }
+
+
 convertIt();
 window.addEventListener('scroll', convertIt);
-
-
-// document.getElementsByTagName('p').forEach(para =>)
-
-
